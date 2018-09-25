@@ -91,8 +91,9 @@ function save() {
 add_action( 'init', 'create_posttype' ); 
 add_action( 'admin_init', 'admin_init' );
 add_action('save_post', 'save'); 
-add_filter('archive_template', 'yourplugin_get_custom_archive_template');
 add_filter('single_template', 'get_custom_single_template');
+add_filter('archive_template', 'yourplugin_get_custom_archive_template');
+
 
 function yourplugin_get_custom_archive_template($template) {
     global $wp_query;
@@ -104,8 +105,8 @@ function yourplugin_get_custom_archive_template($template) {
 }
 function get_custom_single_template($template) {
     global $wp_query;
-    if (is_post_type_archive('event')) {
-        $templates[] = 'single-events.php';
+    if (is_singular('events')) {
+        $templates[] = 'single-event.php';
         $template = events_locate_template($templates);
     }
     return $template;

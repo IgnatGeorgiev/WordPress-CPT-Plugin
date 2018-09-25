@@ -24,20 +24,15 @@ get_header(); ?>
 			<?php
 			/* Start the Loop */
 			while ( have_posts() ) : the_post();
-
-				/*
-				 * Include the Post-Format-specific template for the content.
-				 * If you want to override this in a child theme, then include a file
-				 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-				 */
-				get_template_part( 'template-parts/post/content', get_post_format() );
+				the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
+				echo '<h3>Description:</h3> ';
+				the_content(sprintf(__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'twentyseventeen' ), get_the_title()));
 				echo '<script type="text/javascript" src="https://addevent.com/libs/atc/1.6.1/atc.min.js" async defer></script>';
 				echo '<br>';
 				echo '<iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?q='.get_post_meta($post->ID,"event_location",true).'&key=AIzaSyB6dUO7Ly56GD09VYeCuSK5e-rFg--zHuI" allowfullscreen></iframe>';
-				
 				echo '<br>';
 				echo '<br>';
-		        echo get_post_meta($post->ID, 'event_date', true); 
+		        echo 'Date: '.get_post_meta($post->ID, 'event_date', true); 
 		        echo '<br>';
 		        echo '<br>';
 		        echo '<a href="';
@@ -45,17 +40,8 @@ get_header(); ?>
 		        echo '"'.'> Link </a>';
 				echo '<br>';
 				echo '<br>';
-				echo '<div title="Add to Calendar" class="addeventatc">
-    Add to Calendar
-    <span class="start">'.get_post_meta($post->ID, 'event_date', true).
-'</span>
-    <span class="title">'.get_the_title($post->ID).'</span>
-    <span class="location">'.get_post_meta($post->ID,"event_location",true).'</span>
-</div>';
-
-
+				echo '<div style="margin-bottom:10%;"title="Add to Calendar" class="addeventatc">Add to Calendar<span class="start">'.get_post_meta($post->ID, 'event_date', true).'</span> <span class="title">'.get_the_title($post->ID).'</span><span class="location">'.get_post_meta($post->ID,"event_location",true).'</span></div>';
 			endwhile;
-
 			the_posts_pagination( array(
 				'prev_text' => twentyseventeen_get_svg( array( 'icon' => 'arrow-left' ) ) . '<span class="screen-reader-text">' . __( 'Previous page', 'twentyseventeen' ) . '</span>',
 				'next_text' => '<span class="screen-reader-text">' . __( 'Next page', 'twentyseventeen' ) . '</span>' . twentyseventeen_get_svg( array( 'icon' => 'arrow-right' ) ),

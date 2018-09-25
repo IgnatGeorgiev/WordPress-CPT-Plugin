@@ -1,13 +1,6 @@
 <?php
 /**
  * The template for displaying all single posts
- *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
- *
- * @package WordPress
- * @subpackage Twenty_Seventeen
- * @since 1.0
- * @version 1.0
  */
 
 get_header(); ?>
@@ -19,14 +12,15 @@ get_header(); ?>
             <?php
             /* Start the Loop */
             while ( have_posts() ) : the_post();
-
-                get_template_part( 'template-parts/post/content', get_post_format() );
+                the_title( '<h1 class="entry-title">', '</h1>' );
+                echo '<h2>Description: </h2>';
+                the_content(sprintf(__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'twentyseventeen' ), get_the_title()));
+                echo '<script type="text/javascript" src="https://addevent.com/libs/atc/1.6.1/atc.min.js" async defer></script>';
                 echo '<br>';
                 echo '<iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?q='.get_post_meta($post->ID,"event_location",true).'&key=AIzaSyB6dUO7Ly56GD09VYeCuSK5e-rFg--zHuI" allowfullscreen></iframe>';
-                
                 echo '<br>';
                 echo '<br>';
-                echo get_post_meta($post->ID, 'event_date', true); 
+                echo 'Date: '.get_post_meta($post->ID, 'event_date', true); 
                 echo '<br>';
                 echo '<br>';
                 echo '<a href="';
@@ -34,8 +28,8 @@ get_header(); ?>
                 echo '"'.'> Link </a>';
                 echo '<br>';
                 echo '<br>';
-                
-
+                echo '<div style="margin-bottom:10%;"title="Add to Calendar" class="addeventatc">Add to Calendar<span class="start">'.get_post_meta($post->ID, 'event_date', true).'</span> <span class="title">'.get_the_title($post->ID).'</span><span class="location">'.get_post_meta($post->ID,"event_location",true).'</span></div>';
+                twentyseventeen_entry_footer();
                 // If comments are open or we have at least one comment, load up the comment template.
                 if ( comments_open() || get_comments_number() ) :
                     comments_template();
@@ -48,8 +42,8 @@ get_header(); ?>
 
             endwhile; // End of the loop.
             ?>
-
-        </main><!-- #main -->
+            
+        </main><!-- #main1 -->
     </div><!-- #primary -->
     <?php get_sidebar(); ?>
 </div><!-- .wrap -->
