@@ -40,6 +40,7 @@ function event_date(){
   $custom = get_post_custom($post->ID);
   $event_date = $custom["event_date"][0];
   wp_enqueue_script( 'jquery-ui-datepicker' );
+  wp_enqueue_script('https://addevent.com/libs/atc/1.6.1/atc.min.js');
   wp_enqueue_style('jquery-ui.min',plugins_url('events-ignat/assets/jquery-ui-1.12.1/jquery-ui.min.css'));
 
   ?>
@@ -103,7 +104,7 @@ function yourplugin_get_custom_archive_template($template) {
 }
 function get_custom_single_template($template) {
     global $wp_query;
-    if (is_post_type_archive('events')) {
+    if (is_post_type_archive('event')) {
         $templates[] = 'single-events.php';
         $template = events_locate_template($templates);
     }
