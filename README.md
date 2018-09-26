@@ -1,7 +1,7 @@
 # === WordPress CPT Plugin ===
 Contributors: IgnatGeorgiev
 
-Tags: comments, spam
+Tags: CPT, events
 
 Tested up to: 4.9.8
 
